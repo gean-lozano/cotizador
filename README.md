@@ -11,6 +11,12 @@ docker compose up --build
 
 Si XAMPP ya usa el puerto 3306, cambia `DB_HOST_PORT=3307` en `.env`.
 
+## 🎥 Video demo del sistema
+[![Ver demo del sistema](https://img.youtube.com/vi/DrR1kcsetYs/0.jpg)](https://www.youtube.com/watch?v=DrR1kcsetYs)
+
+## Diagrama de la arquitectura
+![Diagrama de arquitectura](arqui_coti.png)
+
 ## Comandos útiles
 ```bash
 docker compose down        # apagar (conserva los datos)
