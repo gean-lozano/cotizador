@@ -1,0 +1,57 @@
+:root {
+  --bg: #f4f6fa;
+  --card: #ffffff;
+  --texto: #1d2433;
+  --borde: #c8d0e0;
+  --linea: #e5e9f2;
+  --tab: #e3e8f2;
+  --primario: #2b5fd9;
+  --error-bg: #fdeaea;
+  --error: #c0262d;
+  --ok-bg: #e1f6e6;
+  --warn-bg: #fff6dc;
+}
+
+[data-theme="dark"] {
+  --bg: #0f1420;
+  --card: #1a2133;
+  --texto: #e6eaf5;
+  --borde: #33405c;
+  --linea: #28324a;
+  --tab: #26304a;
+  --primario: #4c7dff;
+  --error-bg: #3b1d22;
+  --error: #ff8a90;
+  --ok-bg: #1b3a27;
+  --warn-bg: #3d3418;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--texto); }
+.app { max-width: 1000px; margin: 0 auto; padding: 16px; }
+header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+h1 { font-size: 1.4rem; margin: 0; }
+nav { display: flex; gap: 6px; flex-wrap: wrap; }
+.tab { background: var(--tab); color: var(--texto); border: 0; padding: 8px 14px; border-radius: 6px; cursor: pointer; }
+.tab.activa { background: var(--primario); color: #fff; }
+main { background: var(--card); border-radius: 10px; padding: 20px; margin-top: 14px; box-shadow: 0 1px 4px #0001; overflow-x: auto; }
+.barra { display: flex; justify-content: space-between; align-items: center; }
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+th, td { text-align: left; padding: 8px; border-bottom: 1px solid var(--linea); }
+.num { text-align: right; white-space: nowrap; }
+.vacio { text-align: center; color: #888; }
+.inactivo { opacity: .5; }
+input, select { padding: 7px; border: 1px solid var(--borde); border-radius: 6px; width: 100%; background: var(--card); color: var(--texto); }
+input.corto { width: 90px; }
+button, .boton { padding: 7px 12px; border: 1px solid var(--borde); border-radius: 6px; background: var(--card); color: var(--texto); cursor: pointer; text-decoration: none; font-size: .9rem; }
+button.primario, .boton { background: var(--primario); border-color: var(--primario); color: #fff; }
+a { color: var(--primario); }
+.form-fila { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin: 10px 0; }
+.error { color: var(--error); background: var(--error-bg); padding: 8px; border-radius: 6px; }
+.totales { text-align: right; margin: 16px 0; line-height: 1.7; }
+.totales .total { font-size: 1.2rem; }
+.estado { width: auto; }
+.estado.APROBADA { background: var(--ok-bg); }
+.estado.RECHAZADA { background: var(--error-bg); }
+.estado.PENDIENTE { background: var(--warn-bg); }

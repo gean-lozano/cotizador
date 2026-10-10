@@ -1,0 +1,56 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: cotizaciones-db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      TZ: America/Lima
+    ports:
+      - "${DB_HOST_PORT:-3306}:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    networks: [app-network]
+
+  backend:
+    build: ./backend
+    container_name: cotizaciones-backend
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_URL: "jdbc:mysql://db:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Lima"
+      DB_USER: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "8080:8080"
+    networks: [app-network]
+
+  frontend:
+    build: ./frontend
+    container_name: cotizaciones-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      # El navegador (tu máquina) llama al backend por el puerto publicado
+      VITE_API_URL: http://localhost:8080/api
+    ports:
+      - "5173:5173"
+    networks: [app-network]
+
+networks:
+  app-network:
+
+volumes:
+  mysql_data:
